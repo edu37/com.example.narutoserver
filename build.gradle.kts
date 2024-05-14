@@ -29,6 +29,7 @@ dependencies {
     implementation("io.ktor:ktor-server-call-logging-jvm")
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("io.ktor:ktor-server-default-headers")
+    implementation("io.ktor:ktor-server-status-pages")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
 
     // Logback
