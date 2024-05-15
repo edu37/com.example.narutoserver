@@ -35,4 +35,21 @@ class RouteEndpointTest : KoinTest {
             )
         }
     }
+
+    @Test
+    fun `Given root endpoint, When access inexisting endpoint, Then throw 404 error not found`() = testApplication {
+        application {
+            configureRouting()
+        }
+        client.get("/something").apply {
+            assertEquals(
+                expected = HttpStatusCode.NotFound,
+                actual = status
+            )
+            assertEquals(
+                expected = "",
+                actual = body()
+            )
+        }
+    }
 }
