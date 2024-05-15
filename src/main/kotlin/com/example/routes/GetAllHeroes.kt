@@ -1,7 +1,7 @@
 package com.example.routes
 
-import com.example.model.ApiResponse
 import com.example.repository.HeroRepository
+import com.example.util.ExceptionHandler
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -23,22 +23,17 @@ fun Route.getAllHeroes() {
                 status = HttpStatusCode.OK
             )
         } catch (exception: NumberFormatException) {
+            val response = ExceptionHandler.exceptionResponse("Only numbers allowed.")
             call.respond(
-                message = exceptionResponse("Only numbers allowed."),
+                message = response,
                 status = HttpStatusCode.BadRequest
             )
         } catch (exception: IllegalArgumentException) {
+            val response = ExceptionHandler.exceptionResponse("Page not found.")
             call.respond(
-                message = exceptionResponse("Heroes not found."),
+                message = response,
                 status = HttpStatusCode.NotFound
             )
         }
     }
-}
-
-private fun exceptionResponse(message: String): ApiResponse {
-    return ApiResponse(
-        success = false,
-        message = message
-    )
 }

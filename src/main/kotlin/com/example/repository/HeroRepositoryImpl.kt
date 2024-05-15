@@ -2,6 +2,8 @@ package com.example.repository
 
 import com.example.model.ApiResponse
 import com.example.model.Hero
+import com.example.util.calculateNextPage
+import com.example.util.calculatePreviousPage
 
 class HeroRepositoryImpl : HeroRepository {
     override val heroes: Map<Int, List<Hero>> by lazy {
@@ -44,24 +46,10 @@ class HeroRepositoryImpl : HeroRepository {
         return ApiResponse(
             success = true,
             message = "getAllHeroes",
-            previousPage = calculatePreviousPage(page),
-            nextPage = calculateNextPage(page),
+            previousPage = page.calculatePreviousPage(),
+            nextPage = page.calculateNextPage(),
             heroes = heroes[page]!!
         )
-    }
-
-    private fun calculatePreviousPage(page: Int): Int? {
-        return when (page) {
-            in 2..5 -> page.minus(1)
-            else -> null
-        }
-    }
-
-    private fun calculateNextPage(page: Int): Int? {
-        return when (page) {
-            in 1..4 -> page.plus(1)
-            else -> null
-        }
     }
 
     override suspend fun searchHero(name: String?): ApiResponse {

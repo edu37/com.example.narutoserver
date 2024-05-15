@@ -9,4 +9,6 @@ data class ApiResponse(
     val previousPage: Int? = null,
     val nextPage: Int? = null,
     val heroes: List<Hero> = emptyList()
-)
+) {
+
+}
